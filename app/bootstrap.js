@@ -33,9 +33,6 @@ requirejs.config({
         'bootstrap': {
             deps: ['jquery'],
             exports: 'jquery'
-        },
-        'handlebars': {
-            exports: 'Handlebars'
         }
     },
     packages: [
