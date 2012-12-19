@@ -2,7 +2,7 @@ define([
     'spoon',
     'doT',
     'text!./assets/tmpl/footer.html',
-    'css!./assets/css/main.css'
+    'css!./assets/css/footer.css'
 ], function (spoon, doT, tmpl) {
 
     'use strict';
