@@ -16,9 +16,9 @@ requirejs.config({
         'address': '../vendor/address/src',
         'jquery': '../vendor/jquery/jquery',
         'doT': '../vendor/doT/doT',
+        'bootstrap': '../vendor/bootstrap/js/bootstrap',
         'text': '../vendor/requirejs-text/text',
         'has': '../vendor/has/has',
-        'bootstrap': '../vendor/bootstrap/js/bootstrap',
 
         // App & config
         'app': '../app',
@@ -30,9 +30,8 @@ requirejs.config({
         'services/state': '../vendor/spoon.js/src/core/StateRegistry/StateRegistryFactory'
     },
     shim: {
-        'bootstrap': {
-            deps: ['jquery'],
-            exports: 'jquery'
+        'handlebars': {
+            exports: 'Handlebars'
         }
     },
     packages: [
@@ -53,7 +52,7 @@ requirejs.config({
             location: '../vendor/dejavu/dist/amd/strict'
         }
     ],
-    urlArgs: 'bust=' + (+new Date())    // Fix cache issues
+    urlArgs: (new Date()).getTime()    // Fix cache issues
 });
 
 // Application bootstrap

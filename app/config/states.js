@@ -6,19 +6,19 @@ define(function () {
     // This is actually not necessary if you don't have routes associated to states
     // But it is a good practice to do so, because it gives an overview of all the application states
     return {
-        home: '/',
-        articles: {
-            $pattern: '/articles',
+        home: '/'
+        /*shop: {
+            $pattern: '/shop',
             index: '/',
-            // Just to demonstrate some advanced stuff
-            show: {
-                $pattern: '/{id}',
+            show: '/{id}',
+            buy: {
+                // If $fullPattern is used instead, it would be an absolure URL instead of relative
+                $pattern: '/buy/{id}'
+                // Constraints are useful to define rules for placeholders
                 $constraints: {
                     id: /\d+/
                 }
             }
-        },
-        help: '/help',
-        about: '/about'
+        },*/
     };
 });

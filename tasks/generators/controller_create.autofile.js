@@ -1,4 +1,6 @@
-/*jshint node:true, strict:false*/
+/*jshint node:true*/
+
+'use strict';
 
 var path  = require('path');
 var utils = require('amd-utils');
@@ -8,6 +10,7 @@ var task = {
     id: 'spoon-controller-create',
     name: 'SpoonJS controller create',
     author: 'Indigo United',
+    description: 'Create controller',
     options: {
         name: {
             description : 'The name of the controller'
@@ -17,25 +20,32 @@ var task = {
             'default': false
         }
     },
-    filter: function (opts, next) {
-        // Trim trailing controller
-        opts.name = opts.name.replace(/([_\-]?controller)$/i, '');
-
+    filter: function (opts, ctx, next) {
         // Get the location in which the the module will be created
         var cwd = path.normalize(process.cwd()),
             location = path.dirname(opts.name),
             target;
 
+        // Extract only the basename
+        opts.name = path.basename(opts.name);
+
+        // Validate name
+        if (/[^a-z0-9_\-\.]/i.test(opts.name)) {
+            return next(new Error('"' + opts.name + '" contains unallowed chars'));
+        }
+
+        // Trim trailing controller and generate a suitable name
+        opts.name = path.basename(opts.name.replace(/([_\-]?controller)$/i, ''), '.js');
+        opts.name = utils.string.pascalCase(opts.name.replace(/_/g, '-'));
+
+        if (location === '.') {
+            return next(new Error('Please specify a folder for the controller (e.g. Application/' + opts.name + ')'));
+        }
         if (location.charAt(0) !== '/') {
-            location = '/src/Application/' + location;
+            location = '/src/' + location;
         }
 
         opts.dir = path.join(cwd, location);
-        opts.name = path.basename(opts.name);
-
-        // Generate suitable name
-        opts.name = utils.string.pascalCase(opts.name.replace(/_/g, '-'));
-
         opts.__dirname = __dirname;
 
         // Check if create already exists
@@ -43,7 +53,7 @@ var task = {
         if (!opts.force) {
             fs.stat(target, function (err) {
                 if (!err || err.code !== 'ENOENT') {
-                    return next(new Error(target + ' already exists'));
+                    return next(new Error('"' + target + '" already exists'));
                 }
 
                 return next();
@@ -58,7 +68,7 @@ var task = {
             description: 'Copy the controller directory',
             options: {
                 files: {
-                    '{{__dirname}}/controller_structure/*' : '{{dir}}'
+                    '{{__dirname}}/controller_structure/**/*' : '{{dir}}'
                 }
             }
         },
@@ -66,7 +76,7 @@ var task = {
             task: 'scaffolding-file-rename',
             description: 'Rename files according to the name of the controller',
             options: {
-                dirs: '{{dir}}',
+                files: '{{dir}}/**/*',
                 data: {
                     name: '{{name}}'
                 }
@@ -78,8 +88,7 @@ var task = {
             options: {
                 files: '{{dir}}/**/*',
                 data: {
-                    name: '{{name}}',
-                    hyphenated_name: '{{nameSlug}}'
+                    name: '{{name}}'
                 }
             }
         }

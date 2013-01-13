@@ -1,4 +1,6 @@
-/*jshint node:true, strict:false*/
+/*jshint node:true*/
+
+'use strict';
 
 var path  = require('path');
 var utils = require('amd-utils');
@@ -8,6 +10,7 @@ var task = {
     id: 'spoon-module-create',
     name: 'SpoonJS module create',
     author: 'Indigo United',
+    description: 'Create module',
     options: {
         name: {
             description : 'The name of the module'
@@ -17,30 +20,35 @@ var task = {
             'default': false
         }
     },
-    filter: function (opts, next) {
+    filter: function (opts, ctx, next) {
         // Get the location in which the the module will be created
         var cwd = path.normalize(process.cwd()),
             location = path.dirname(opts.name);
 
-        if (location.charAt(0) !== '/') {
-            location = '/src/Application/' + location;
-        }
+        // Extract only the basename
+        opts.name = path.basename(opts.name, '.js');
 
-        opts.dir = path.join(cwd, location);
-        opts.name = path.basename(opts.name);
+        // Validate name
+        if (/[^a-z0-9_\-\.]/i.test(opts.name)) {
+            return next(new Error('"' + opts.name + '" contains unallowed chars'));
+        }
 
         // Generate suitable names
         opts.name = utils.string.pascalCase(opts.name.replace(/_/g, '-'));
-        opts.nameSlug = utils.string.slugify(opts.name.replace(/[_\-]/g, ' '));
+        opts.nameSlug = utils.string.underscore(opts.name);
 
+        if (location.charAt(0) !== '/') {
+            location = '/src/' + location;
+        }
+
+        opts.dir = path.join(cwd, location, opts.name);
         opts.__dirname = __dirname;
 
         // Check if module already exists
-        opts.dir = path.join(opts.dir, opts.name);
         if (!opts.force) {
             fs.stat(opts.dir, function (err) {
                 if (!err || err.code !== 'ENOENT') {
-                    return next(new Error(opts.dir + ' already exists'));
+                    return next(new Error('"' + opts.name + '" already exists'));
                 }
 
                 return next();
@@ -55,7 +63,10 @@ var task = {
             description: 'Copy the structure of the module',
             options: {
                 files: {
-                    '{{__dirname}}/module_structure/*' : '{{dir}}'
+                    '{{__dirname}}/module_structure/**/*' : '{{dir}}'
+                },
+                glob: {
+                    dot: true
                 }
             }
         },
@@ -63,7 +74,7 @@ var task = {
             task: 'scaffolding-file-rename',
             description: 'Rename files based on the name of the module',
             options: {
-                dirs: '{{dir}}',
+                files: '{{dir}}/**/*',
                 data: {
                     name: '{{name}}',
                     hyphenated_name: '{{nameSlug}}'

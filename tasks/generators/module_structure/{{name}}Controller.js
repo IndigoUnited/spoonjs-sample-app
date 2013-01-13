@@ -19,21 +19,27 @@ define([
 
         /**
          * Constructor.
+         *
+         * @param {Element} element The element in which the module will work on
          */
-        initialize: function () {
+        initialize: function (element) {
             this.$super();
 
             this._view = this._link(new {{name}}View());
-            this._view.render();
+            this._view
+                .appendTo(element)
+                .render();
         },
 
         /**
-         * Some state handler.
+         * Index state handler.
          *
          * @param {Object} state The state parameter bag
          */
-        /*_someState: function (state) {
-            // index state implementation goes here
+        /*_indexState: function (state) {
+            // The index state implementation goes here
+            // The state might instantiate another module or simply a view
+            // See the default ApplicationController implementation for an example
         },*/
 
         /**
