@@ -25,7 +25,8 @@ define([
         /**
          * Handles the back button click.
          */
-        _onBackClick: function () {
+        _onBackClick: function (event, element) {
+            console.log('Click the back button', element);
             this._upcast('back');
         }
     });
