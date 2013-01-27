@@ -44,14 +44,14 @@ define([
         /**
          * Handles the mouse enter.
          */
-        _onMouseEnter: function () {
+        _onMouseEnter: function (event, element) {
             console.log('Enter list view');
         },
 
         /**
          * Handles the mouse leave.
          */
-        _onMouseLeave: function () {
+        _onMouseLeave: function (event, element) {
             console.log('Leave list view');
         }
     });
