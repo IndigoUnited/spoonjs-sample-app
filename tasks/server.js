@@ -1,4 +1,4 @@
-/*jshint node:true, latedef:false */
+/*jshint node:true, es5:true, latedef:false*/
 
 'use strict';
 
@@ -15,45 +15,24 @@ var task = {
     options: {
         env: {
             description: 'The environment that the server will run',
-            'default': 'dev'
-        },
-        favicon: {
-            description: 'The favicon path',
-            'default': './favicon.ico'
-        },
-        index: {
-            description: 'The index file to use (defaults to the index according to the environment)'
-        },
-        rewrite: {
-            description: 'Enable or disable URL rewrite (in order to pushState to work)',
-            'default': true
-        },
-        gzip: {
-            description: 'Enable gzip compression (defaults to true if environment is not dev)'
+            default: 'dev'
         },
         port: {
             description: 'The port listen for requests',
-            'default': 8000
+            default: 8000
         },
         host: {
             description: 'The host to listen for requests',
-            'default': '127.0.0.1'
+            default: '127.0.0.1'
         }
     },
     filter: function (options, ctx, next) {
-        if (!options.index) {
-            options.index = options.env === 'dev' ? './index.html' : './index_' + options.env + '.html';
-        }
-        if (options.gzip == null) {
-            options.gzip = options.env !== 'dev';
-        }
+        options.index = options.env === 'dev' ? './index.html' : './index_' + options.env + '.html';
+        options.assetsDir = options.env;
 
-        if (options.env === 'dev') {
-            options.rootSymlink = true;
-            options.rewrite = false;
-            options.assetsDir = 'root';
-        } else {
-            options.assetsDir = options.env;
+        if (options.env !== 'dev') {
+            options.rewrite = true;
+            options.gzip = true;
         }
 
         next();
@@ -63,9 +42,10 @@ var task = {
             task: function (options, ctx, next) {
                 // Change cwd to the web folder
                 process.chdir('web');
+
                 var web = process.cwd(),
                     env = options.env,
-                    root;
+                    link;
 
                 // Check if the env is valid
                 try {
@@ -78,21 +58,40 @@ var task = {
 
                 options.web = web;
 
-                // Create root symlink
-                if (options.rootSymlink) {
-                    root = path.join(web, 'root');
+                // Create dev symlink
+                if (options.env === 'dev') {
                     try {
-                        fs.unlinkSync(root);
+                        link = fs.readlinkSync('dev');
                     } catch (e) {}
 
-                    fs.symlinkSync(path.resolve(web, '..'), root, 'dir');
-                }
+                    if (!link || link !== '..') {
+                        try {
+                            fs.unlinkSync('dev');
+                        } catch (e) {}
 
-                try {
-                    fs.statSync(options.assetsDir);
-                } catch (e) {
-                    if (e.code === 'ENOENT') {
-                        return next(new Error('Assets dir not found, did you forgot to build?'));
+                        // In windows, users can't create symlinks in the console
+                        // without running the actual command with Administrator permissions
+                        // see: http://ahtik.com/blog/2012/08/16/fixing-your-virtualbox-shared-folder-symlink-error
+                        if (process.platform === 'win32') {
+                            try {
+                                fs.symlinkSync('..', 'dev', 'dir');
+                            } catch (e) {
+                                if (e.code === 'EPERM') {
+                                    return next(new Error('No permission to create symlink (try running as an Administrator).'));
+                                }
+                            }
+                        } else {
+                            fs.symlinkSync('..', 'dev', 'dir');
+                        }
+                    }
+                // Check assets dir
+                } else {
+                    try {
+                        fs.statSync(options.assetsDir);
+                    } catch (e) {
+                        if (e.code === 'ENOENT') {
+                            return next(new Error('Directory "' + options.assetsDir + '" not found, did you forgot to build?'));
+                        }
                     }
                 }
 
@@ -116,7 +115,7 @@ var task = {
                 });
 
                 // Serve favicon.ico
-                site.use(express.favicon(opts.favicon));
+                site.use(express.favicon('./favicon.ico'));
 
 
                 // Serve files & folders

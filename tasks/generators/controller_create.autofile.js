@@ -1,4 +1,4 @@
-/*jshint node:true*/
+/*jshint node:true, es5:true*/
 
 'use strict';
 
@@ -17,7 +17,7 @@ var task = {
         },
         force: {
             description: 'Force the creation of the controller, even if it already exists',
-            'default': false
+            default: false
         }
     },
     filter: function (opts, ctx, next) {
@@ -35,7 +35,7 @@ var task = {
         }
 
         // Trim trailing controller and generate a suitable name
-        opts.name = path.basename(opts.name.replace(/([_\-]?controller)$/i, ''), '.js');
+        opts.name = path.basename(opts.name.replace(/([_\-]?controller)$/i, ''), '.js') || 'Controller';
         opts.name = utils.string.pascalCase(opts.name.replace(/_/g, '-'));
 
         if (location === '.') {
