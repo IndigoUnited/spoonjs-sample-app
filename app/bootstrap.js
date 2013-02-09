@@ -59,21 +59,19 @@ requirejs.config({
 require([
     'Application/ApplicationController',
     'services/state',
-    'jquery'
-], function (ApplicationController, stateRegistry, $) {
+    'base-adapter/dom/Utilities'
+], function (ApplicationController, stateRegistry, Utilities) {
 
     'use strict';
 
-    $(document).ready(function () {
+    Utilities.ready(function () {
         // Initialize the Application controller
         var appController = new ApplicationController();
 
-        // Listen for the state change event and call setState on the Application controller
+        // Listen to the state change event
         stateRegistry.on('change', appController.setState, appController);
 
-        // Call set state on the Application controller with the current registry state
-        // At this time, the current state on the state registry is already set
-        // This will effectively bootstrap the application
-        appController.setState(stateRegistry.getCurrent());
+        // Call parse() to make the state registry read the address value
+        stateRegistry.parse();
     });
 });
