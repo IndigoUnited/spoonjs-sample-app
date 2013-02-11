@@ -46,9 +46,9 @@ npm-debug.*
 
 # Project specific #
 ######################
-components
-vendor
-web/root
-web/prod
-web/staging
-tmp
+/components
+/vendor
+/web/dev
+/web/prod
+/web/staging
+/tmp
