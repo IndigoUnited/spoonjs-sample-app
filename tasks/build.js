@@ -48,7 +48,7 @@ var task = {
             opts.tempDir = cwd + '/tmp';
             opts.projectDir = cwd;
 
-            ctx.log.writeln('Will build version ' + String(opts.version).green);
+            ctx.log.infoln('Will build version ' + String(opts.version).green);
             next();
         });
     },
@@ -230,7 +230,7 @@ var task = {
                     minifiedSize = String(minified.code.length),
                     gzipSize = String(gzip.zip(minified.code, {}).length);
 
-                ctx.log.writeln('Compressed size: ' + gzipSize.green + ' bytes gzipped (' + minifiedSize.green + ' bytes minified).');
+                ctx.log.infoln('Compressed size: ' + gzipSize.green + ' bytes gzipped (' + minifiedSize.green + ' bytes minified).');
 
                 fs.writeFile(opts.targetDir + '/app.min.js', minified.code, next);
             },
@@ -248,7 +248,7 @@ var task = {
                         minifiedSize = String(minified.length),
                         gzipSize = String(gzip.zip(minified, {}).length);
 
-                    ctx.log.writeln('Compressed size: ' + gzipSize.green + ' bytes gzipped (' + minifiedSize.green + ' bytes minified).');
+                    ctx.log.infoln('Compressed size: ' + gzipSize.green + ' bytes gzipped (' + minifiedSize.green + ' bytes minified).');
 
                     fs.writeFile(opts.targetDir + '/app.min.css', minified, next);
                 });

@@ -141,7 +141,7 @@ var task = {
 
                 // Effectively listen
                 site.listen(opts.port, opts.host);
-                ctx.log.writeln('Listening on http://' + (opts.host === '127.0.0.1' ? 'localhost' : opts.host) + ':' + opts.port + ' (' + opts.env + ' environment)');
+                ctx.log.infoln('Listening on http://' + (opts.host === '127.0.0.1' ? 'localhost' : opts.host) + ':' + opts.port + ' (' + opts.env + ' environment)');
             },
             description: 'Serve files'
         }

@@ -76,7 +76,7 @@ var task = {
             task: 'scaffolding-file-rename',
             description: 'Rename files according to the name of the controller',
             options: {
-                files: '{{dir}}/**/*',
+                files: '{{dir}}/**/*.+(css|js|html)',
                 data: {
                     name: '{{name}}'
                 }

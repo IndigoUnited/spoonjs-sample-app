@@ -91,7 +91,7 @@ var task = {
             task: 'scaffolding-replace',
             description: 'Set up view',
             options: {
-                files: '{{dir}}/**/*',
+                files: '{{dir}}/**/*.+(css|js|html)',
                 data: {
                     name: '{{name}}',
                     underscoredName: '{{underscoredName}}'
