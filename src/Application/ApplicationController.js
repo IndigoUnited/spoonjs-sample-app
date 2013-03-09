@@ -7,9 +7,8 @@ define([
     '../Menu/MenuController',
     '../Content/Home/HomeController',
     '../Content/Articles/ArticlesController',
-    '../Content/Help/HelpController',
-    'services/state'
-], function (spoon, ApplicationView, AboutView, HeaderController, FooterController, MenuController, HomeController, ArticlesController, HelpController, stateRegistry) {
+    '../Content/Help/HelpController'
+], function (spoon, ApplicationView, AboutView, HeaderController, FooterController, MenuController, HomeController, ArticlesController, HelpController) {
 
     'use strict';
 
@@ -31,8 +30,6 @@ define([
         _view: null,
         _panelView: null,
 
-        _previousState: null,
-
         ////////////////////////////////////////////////////////////
 
         /**
@@ -50,11 +47,6 @@ define([
             this._header = this._link(new HeaderController());
             this._footer = this._link(new FooterController());
             this._menu = this._link(new MenuController());
-
-            // Listen for the address change
-            // We need to keep track of the state because of the about panel
-            stateRegistry.on('change', this._onStateChange, this);
-            this._previousState = stateRegistry.getCurrent();
         },
 
         /**
@@ -104,7 +96,7 @@ define([
          *
          * @param {Object} state The state parameter bag
          */
-        _aboutState: function () {
+        _aboutState: function (state) {
             // If there is no content behind the panel we put the home
             // This is just in case the user enters via deeplinking
             if (!this._content) {
@@ -117,17 +109,10 @@ define([
             this._panelView.render();
 
             this._panelView.on('close', function () {
-                this.setState(this._previousState);  // Change to the previous known state
+                this.setState(state.$info.previousState);  // Change to the previous known state
             }.$bind(this));
 
             this._broadcast('app.content_change', 'about');
-        },
-
-        /**
-         * Handle the state change event.
-         */
-        _onStateChange: function (newState, previousState) {
-            this._previousState = previousState;
         },
 
         /**
