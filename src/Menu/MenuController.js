@@ -37,18 +37,6 @@ define([
             this._view.setSelected(key);
 
             return this;
-        },
-
-        /**
-         * {@inheritDoc}
-         */
-        _onDestroy: function () {
-            if (this._view) {
-                this._view.destroy();
-                this._view = null;
-            }
-
-            this.$super();
         }
     });
 });

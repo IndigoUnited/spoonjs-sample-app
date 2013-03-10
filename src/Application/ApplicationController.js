@@ -135,16 +135,6 @@ define([
                 this._panelView.destroy();
                 this._panelView = null;
             }
-        },
-
-        /**
-         * {@inheritDoc}
-         */
-        _onDestroy: function () {
-            this._destroyContent();
-            this._destroyPanel();
-
-            this.$super();
         }
     });
 });

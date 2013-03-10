@@ -21,18 +21,6 @@ define([
             this._view = this._link(new HelpView());
             this._view.appendTo('#content');
             this._view.render();
-        },
-
-        /**
-         * {@inheritDoc}
-         */
-        _onDestroy: function () {
-            if (this._view) {
-                this._view.destroy();
-                this._view = null;
-            }
-
-            this.$super();
         }
     });
 });

@@ -41,7 +41,8 @@ define([
          *
          * @param {Object} state The state parameter bag
          */
-        _indexState: function () {
+        _indexState: function (state) {
+            console.inspect(state);
             this._destroyView();
             this._view = this._link(new ArticlesListView());
             this._view.appendTo('#content');
@@ -54,6 +55,7 @@ define([
          * @param {Object} state The state parameter bag
          */
         _showState: function (state) {
+            console.inspect(state);
             var id = state.id;
 
             if (!this._mockData[id - 1]) {
@@ -67,7 +69,7 @@ define([
 
                 // Handle the back event
                 this._view.on('back', function () {
-                    this.setState('index');
+                    this.setState('index', null, { replace: true });
                 }.$bind(this));
             }
         },
@@ -80,14 +82,6 @@ define([
                 this._view.destroy();
                 this._view = null;
             }
-        },
-
-        /**
-         * {@inheritDoc}
-         */
-        _onDestroy: function () {
-            this._destroyView();
-            this.$super();
         }
     });
 });
