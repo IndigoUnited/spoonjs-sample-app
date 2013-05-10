@@ -1,4 +1,4 @@
-# Spoon.js sample app #
+Spoon.js sample app
 ---
 
 This is a little application that serve as an example of how spoon.js code looks like.
