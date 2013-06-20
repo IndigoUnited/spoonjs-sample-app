@@ -12,10 +12,6 @@ define([
 
         _template: doT.template(tmpl),
 
-        /////////////////////////////////////////
-
-        _currentSelected: null,
-
         /**
          * Sets the current selected menu item.
          *

@@ -15,18 +15,16 @@ define([
         _element: 'div.about',
         _template: doT.template(tmpl),
 
-        _modalEl: null,
-
         /**
          * {@inheritDoc}
          */
         render: function () {
-            this.$super();
+            spoon.View.prototype.render.call(this);
 
             this._modalEl = this._element.find('.modal').modal();
             this._modalEl.on('hidden', function () {
                 this._upcast('close');
-            }.$bind(this));
+            }.bind(this));
         },
 
         /**
@@ -35,7 +33,7 @@ define([
         _onDestroy: function () {
             this._modalEl.off().modal('hide');
 
-            this.$super();
+            spoon.View.prototype._onDestroy.call(this);
         }
     });
 });

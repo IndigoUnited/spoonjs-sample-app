@@ -9,15 +9,11 @@ define([
     return spoon.Controller.extend({
         $name: 'FooterController',
 
-        _view: null,
-
-        ////////////////////////////////////////////////////////////
-
         /**
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            spoon.Controller.call(this);
 
             this._view = this._link(new FooterView($('#footer')));
             this._view.render();

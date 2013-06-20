@@ -23,20 +23,11 @@ define([
             'about': '_aboutState'
         },
 
-        _header: null,
-        _footer: null,
-        _menu: null,
-        _content: null,
-        _view: null,
-        _panelView: null,
-
-        ////////////////////////////////////////////////////////////
-
         /**
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            spoon.Controller.call(this);
 
             // Instantiate and render the application view
             this._view = this._link(new ApplicationView());
@@ -110,7 +101,7 @@ define([
 
             this._panelView.on('close', function () {
                 this.setState(state.$info.previousState);  // Change to the previous known state
-            }.$bind(this));
+            }.bind(this));
 
             this._broadcast('app.content_change', 'about');
         },

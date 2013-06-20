@@ -22,13 +22,11 @@ define([
             'mouseleave a': '_onMouseLeave'
         },
 
-        ////////////////////////////////////////////////////////////
-
         /**
          * {@inheritDoc}
          */
         render: function (data) {
-            this.$super(data);
+            spoon.View.prototype.render.call(this, data);
 
             this._element.data('id', data.article.id);
         },

@@ -16,7 +16,7 @@ define([
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            spoon.Controller.call(this);
 
             this._view = this._link(new HomeView());
             this._view.appendTo('#content');

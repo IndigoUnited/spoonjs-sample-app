@@ -8,15 +8,11 @@ define([
     return spoon.Controller.extend({
         $name: 'HelpController',
 
-        _view: null,
-
-        ////////////////////////////////////////////////////////////
-
         /**
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            spoon.Controller.call(this);
 
             this._view = this._link(new HelpView());
             this._view.appendTo('#content');

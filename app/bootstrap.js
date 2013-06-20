@@ -10,9 +10,6 @@ requirejs.config({
         // Vendors
         'mout': '../vendor/mout/src',
         'events-emitter': '../vendor/events-emitter/src',
-        'dom-responder': '../vendor/dom-responder/src',
-        'base-adapter': '../vendor/base-adapter/src/adapters/jquery',
-        'base-adapter/src': '../vendor/base-adapter/src',
         'address': '../vendor/address/src',
         'jquery': '../vendor/jquery/jquery',
         'doT': '../vendor/doT/doT',
@@ -45,11 +42,6 @@ requirejs.config({
         {
             name: 'spoon',
             location: '../vendor/spoon.js/src'
-        },
-        // dejavu
-        {
-            name: 'dejavu',
-            location: '../vendor/dejavu/dist/amd/strict'
         }
     ],
     urlArgs: (new Date()).getTime()    // Fix cache issues
@@ -59,12 +51,12 @@ requirejs.config({
 require([
     'Application/ApplicationController',
     'services/state',
-    'base-adapter/dom/Utilities'
-], function (ApplicationController, stateRegistry, Utilities) {
+    'jquery'
+], function (ApplicationController, stateRegistry, $) {
 
     'use strict';
 
-    Utilities.ready(function () {
+    $(document).ready(function () {
         // Initialize the Application controller
         var appController = new ApplicationController();
 

@@ -24,7 +24,7 @@ define([
          */
         render: function (data) {
             // Call super, since we are overriding the render
-            this.$super(data);
+            spoon.View.prototype.render.call(this, data);
 
             var x,
                 length = data.articles.length,

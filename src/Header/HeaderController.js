@@ -9,15 +9,11 @@ define([
     return spoon.Controller.extend({
         $name: 'HeaderController',
 
-        _view: null,
-
-        ////////////////////////////////////////////////////////////
-
         /**
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            spoon.Controller.call(this);
 
             this._view = this._link(new HeaderView($('#header')));
             this._view.render();

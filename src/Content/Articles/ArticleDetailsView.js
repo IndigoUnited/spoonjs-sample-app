@@ -20,8 +20,6 @@ define([
             'click .back': '_onBackClick'     // Can also be an anonymous function
         },
 
-        ////////////////////////////////////////////////////////////
-
         /**
          * Handles the back button click.
          */
