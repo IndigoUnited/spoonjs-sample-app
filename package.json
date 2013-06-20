@@ -1,6 +1,10 @@
 {
   "name": "spoon.js-sample-app",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IndigoUnited/spoon.js-sample-app.git"
+  },
   "devDependencies": {
     "mout": "~0.2.0",
     "async": "~0.1.22",
