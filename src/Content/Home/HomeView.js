@@ -1,14 +1,14 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'jquery',
     'text!./assets/tmpl/home.html',
     'css!./assets/css/home.css'
-], function (spoon, doT, $, tmpl) {
+], function (View, doT, $, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'HomeView',
 
         _element: 'div.home',

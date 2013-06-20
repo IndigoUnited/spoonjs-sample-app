@@ -1,5 +1,5 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './ApplicationView',
     './AboutView',
     '../Header/HeaderController',
@@ -8,11 +8,11 @@ define([
     '../Content/Home/HomeController',
     '../Content/Articles/ArticlesController',
     '../Content/Help/HelpController'
-], function (spoon, ApplicationView, AboutView, HeaderController, FooterController, MenuController, HomeController, ArticlesController, HelpController) {
+], function (Controller, ApplicationView, AboutView, HeaderController, FooterController, MenuController, HomeController, ArticlesController, HelpController) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'ApplicationController',
 
         _defaultState: 'home',
@@ -27,7 +27,7 @@ define([
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             // Instantiate and render the application view
             this._view = this._link(new ApplicationView());

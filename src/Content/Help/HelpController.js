@@ -1,18 +1,18 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './HelpView'
-], function (spoon, HelpView) {
+], function (Controller, HelpView) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'HelpController',
 
         /**
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             this._view = this._link(new HelpView());
             this._view.appendTo('#content');

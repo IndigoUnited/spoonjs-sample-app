@@ -1,13 +1,13 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'text!./assets/tmpl/header.html',
     'css!./assets/css/header.css'
-], function (spoon, doT, tmpl) {
+], function (View, doT, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'HeaderView',
 
         _template: doT.template(tmpl)

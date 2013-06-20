@@ -1,19 +1,19 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './HeaderView',
     'jquery'
-], function (spoon, HeaderView, $) {
+], function (Controller, HeaderView, $) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'HeaderController',
 
         /**
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             this._view = this._link(new HeaderView($('#header')));
             this._view.render();

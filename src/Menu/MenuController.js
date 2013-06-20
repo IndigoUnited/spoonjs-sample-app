@@ -1,19 +1,19 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './MenuView',
     'jquery'
-], function (spoon, MenuView, $) {
+], function (Controller, MenuView, $) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'MenuController',
 
         /**
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             this._view = this._link(new MenuView($('#menu')));
             this._view.render();

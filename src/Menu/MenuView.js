@@ -1,13 +1,13 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'text!./assets/tmpl/menu.html',
     'css!./assets/css/menu.css'
-], function (spoon, doT, tmpl) {
+], function (View, doT, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'MenuView',
 
         _template: doT.template(tmpl),

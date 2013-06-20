@@ -1,15 +1,15 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'jquery',
     'text!./assets/tmpl/about.html',
     'css!./assets/css/about.css',
     'bootstrap'
-], function (spoon, doT, $, tmpl) {
+], function (View, doT, $, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'AboutView',
 
         _element: 'div.about',
@@ -19,7 +19,7 @@ define([
          * {@inheritDoc}
          */
         render: function () {
-            spoon.View.prototype.render.call(this);
+            View.prototype.render.call(this);
 
             this._modalEl = this._element.find('.modal').modal();
             this._modalEl.on('hidden', function () {
@@ -33,7 +33,7 @@ define([
         _onDestroy: function () {
             this._modalEl.off().modal('hide');
 
-            spoon.View.prototype._onDestroy.call(this);
+            View.prototype._onDestroy.call(this);
         }
     });
 });

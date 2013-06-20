@@ -1,58 +1,43 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
-    './ArticleListItemView',
     'text!./assets/tmpl/list.html',
     'css!./assets/css/articles.css'
-], function (spoon, doT, ArticleListItemView, tmpl) {
+], function (View, doT, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'ArticlesListView',
 
         _element: 'div.articles-list',
         _template: doT.template(tmpl),
 
         _events: {
-            'mouseenter': '_onMouseEnter',
-            'mouseleave': '_onMouseLeave'
+            'click tr': '_onClick',
+            'mouseenter tr a': '_onMouseEnter',
+            'mouseleave tr a': '_onMouseLeave'
         },
 
         /**
-         * {@inheritDoc}
+         * Handles the row click.
          */
-        render: function (data) {
-            // Call super, since we are overriding the render
-            spoon.View.prototype.render.call(this, data);
-
-            var x,
-                length = data.articles.length,
-                item,
-                table = this._element.find('table');
-
-            // For each article, render the view for it
-            for (x = 0; x < length; x += 1) {
-                item = this._link(new ArticleListItemView());
-                item.render({ article: data.articles[x] });
-                item.appendTo(table);
-            }
-
-            return this;
+        _onClick: function (event, element) {
+            console.log('Click tr of element #' + element.data('id'), element);
         },
 
         /**
-         * Handles the mouse enter.
+         * Handles the row mouse enter.
          */
         _onMouseEnter: function (event, element) {
-            console.log('Enter list view');
+            console.log('Enter link of element #' + element.closest('tr').data('id'), element);
         },
 
         /**
-         * Handles the mouse leave.
+         * Handles the row mouse leave.
          */
         _onMouseLeave: function (event, element) {
-            console.log('Leave list view');
+            console.log('Leave link of element #' + element.closest('tr').data('id'), element);
         }
     });
 });

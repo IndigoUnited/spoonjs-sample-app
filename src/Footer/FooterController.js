@@ -1,19 +1,19 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './FooterView',
     'jquery'
-], function (spoon, FooterView, $) {
+], function (Controller, FooterView, $) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'FooterController',
 
         /**
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             this._view = this._link(new FooterView($('#footer')));
             this._view.render();

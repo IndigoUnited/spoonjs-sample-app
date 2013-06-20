@@ -1,23 +1,22 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'jquery',
     'text!./assets/tmpl/details.html',
     'css!./assets/css/articles.css'
-], function (spoon, doT, $, tmpl) {
+], function (View, doT, $, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'ArticleDetailsView',
 
         _element: 'div.article-details',
         _template: doT.template(tmpl),
 
-        // The events declaration is highly efficient
-        // If one view is linked to another and so on, the root view will be handling all the subviews events with delegation
+        // Handlers can also be anonymous functions
         _events: {
-            'click .back': '_onBackClick'     // Can also be an anonymous function
+            'click .back': '_onBackClick'
         },
 
         /**

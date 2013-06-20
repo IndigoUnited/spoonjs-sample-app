@@ -1,14 +1,14 @@
 define([
-    'spoon',
+    'spoon/View',
     'doT',
     'jquery',
     'text!./assets/tmpl/app.html',
     'css!./assets/css/app.css'
-], function (spoon, doT, $, tmpl) {
+], function (View, doT, $, tmpl) {
 
     'use strict';
 
-    return spoon.View.extend({
+    return View.extend({
         $name: 'ApplicationView',
 
         _element: 'div#app',

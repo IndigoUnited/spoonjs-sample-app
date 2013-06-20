@@ -8,7 +8,6 @@ define(function () {
     return {
         home: '/',
         articles: {
-            $pattern: '/articles',
             index: '/',
             // Just to demonstrate some advanced stuff
             show: {

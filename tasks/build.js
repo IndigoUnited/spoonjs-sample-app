@@ -1,10 +1,9 @@
-/*jshint node:true, es5:true, regexp:false*/
+/*jshint node:true, regexp:false*/
 
 'use strict';
 
 var fs        = require('fs');
 var rjs       = require('requirejs');
-var dejavuOpt = require('dejavu/tasks/optimizer.autofile');
 var UglifyJS  = require('uglify-js');
 var cleanCSS  = require('clean-css');
 var gzip      = require('gzip-js');
@@ -17,11 +16,11 @@ var task = {
     options: {
         env: {
             description: 'The environment to build',
-            default: 'prod'
+            'default': 'prod'
         },
         dejavu: {
             description: 'Optimize dejavu usages',
-            default: true
+            'default': true
         }
     },
     filter: function (opts, ctx, next) {
@@ -74,25 +73,10 @@ var task = {
                 files: {
                     '{{projectDir}}/app/**/*': '{{tempDir}}/app/',
                     '{{projectDir}}/src/**/*': '{{tempDir}}/src/',
-                    '{{projectDir}}/vendor/**/*': '{{tempDir}}/vendor/',
+                    '{{projectDir}}/components/**/*': '{{tempDir}}/components/',
                     '{{projectDir}}/*': '{{tempDir}}/'
                 }
             }
-        },
-        {
-            task: dejavuOpt,
-            options: {
-                files: {
-                    '{{tempDir}}/src/**/*.js': '{{tempDir}}/src/',
-                    '{{tempDir}}/vendor/spoon.js/src/**/*.js': '{{tempDir}}/vendor/spoon.js/src/',
-                    '{{tempDir}}/vendor/events-emitter/src/**/*.js': '{{tempDir}}/vendor/events-emitter/src/',
-                    '{{tempDir}}/vendor/dom-responder/src/**/*.js': '{{tempDir}}/vendor/dom-responder/src/',
-                    '{{tempDir}}/vendor/base-adapter/src/**/*.js': '{{tempDir}}/vendor/base-adapter/src/',
-                    '{{tempDir}}/vendor/address/src/**/*.js': '{{tempDir}}/vendor/address/src/'
-                }
-            },
-            description: 'Optimize dejavu usages',
-            on: '{{dejavu}}'
         },
         // TODO: create automaton task for this (requirejs)
         {
@@ -108,22 +92,12 @@ var task = {
                         // css
                         {
                             name: 'css',
-                            location:  '../vendor/require-css',              // We use the require-css plugin because curl-css
+                            location:  '../components/require-css',          // We use the require-css plugin because curl-css
                             main: 'css'                                      // is not compatible with r.js
-                        },
-                        // spoon
-                        {
-                            name: 'spoon',
-                            location: '../vendor/spoon.js/src'
-                        },
-                        // dejavu
-                        {
-                            name: 'dejavu',
-                            location: '../vendor/dejavu/dist/amd/loose'      // Point to the loose version
                         }
                     ],
                     // r.js specific settings
-                    name: '../vendor/almond/almond',                         // Use almond
+                    name: '../components/almond/almond',                     // Use almond
                     include: 'app/bootstrap',
                     out: opts.tempDir + '/app.js',
                     has: {
@@ -133,7 +107,7 @@ var task = {
                     separateCSS: true,
                     stubModules: ['has', 'text', 'css', 'css/css', 'css/normalize']
                 }, function (log) {
-                    ctx.log.write(log);
+                    ctx.log.info(log);
                     next();
                 }, function (err) {
                     next(err);
@@ -150,7 +124,7 @@ var task = {
                     out: opts.tempDir + '/app.css',
                     preserveLicenseComments: opts.licenses
                 }, function (log) {
-                    ctx.log.write(log);
+                    ctx.log.info(log);
 
                     // Replace trailing css from loader defs
                     fs.readFile(opts.tempDir + '/app.js', function (err, contents) {

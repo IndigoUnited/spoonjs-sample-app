@@ -1,4 +1,4 @@
-/*jshint node:true, es5:true, latedef:false*/
+/*jshint node:true, latedef:false*/
 
 'use strict';
 
@@ -15,19 +15,19 @@ var task = {
     options: {
         env: {
             description: 'The environment that the server will run',
-            default: 'dev'
+            'default': 'dev'
         },
         port: {
             description: 'The port listen for requests',
-            default: 8000
+            'default': 8000
         },
         host: {
             description: 'The host to listen for requests',
-            default: '127.0.0.1'
+            'default': '127.0.0.1'
         }
     },
     filter: function (options, ctx, next) {
-        options.index = options.env === 'dev' ? './index.html' : './index_' + options.env + '.html';
+        options.index = './index_' + options.env + '.html';
         options.assetsDir = options.env;
 
         if (options.env !== 'dev') {

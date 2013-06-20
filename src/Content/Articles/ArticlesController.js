@@ -1,12 +1,12 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './ArticlesListView',
     './ArticleDetailsView'
-], function (spoon, ArticlesListView, ArticleDetailsView) {
+], function (Controller, ArticlesListView, ArticleDetailsView) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'ArticlesController',
 
         _defaultState: 'index',

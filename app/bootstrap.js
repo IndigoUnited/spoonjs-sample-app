@@ -7,41 +7,46 @@
 requirejs.config({
     baseUrl: './dev/src',
     paths: {
-        // Vendors
-        'mout': '../vendor/mout/src',
-        'events-emitter': '../vendor/events-emitter/src',
-        'address': '../vendor/address/src',
-        'jquery': '../vendor/jquery/jquery',
-        'doT': '../vendor/doT/doT',
-        'bootstrap': '../vendor/bootstrap/js/bootstrap',
-        'text': '../vendor/requirejs-text/text',
-        'has': '../vendor/has/has',
+        // Components
+        'mout': '../components/mout/src',
+        'events-emitter': '../components/events-emitter/src',
+        'address': '../components/address/src',
+        'jquery': '../components/jquery/jquery',
+        'doT': '../components/doT/doT',
+        'bootstrap': '../components/bootstrap/js/bootstrap',
+        'text': '../components/requirejs-text/text',
+        'has': '../components/has/has',
 
         // App & config
         'app': '../app',
-        'app-config': '../app/config/config_dev',
-
-        // Services
-        'services/broadcaster': '../vendor/spoon.js/src/core/Broadcaster/BroadcasterFactory',
-        'services/address': '../vendor/spoon.js/src/core/Address/AddressFactory',
-        'services/state': '../vendor/spoon.js/src/core/StateRegistry/StateRegistryFactory'
+        'app-config': '../app/config/config_dev'
     },
     shim: {
         'handlebars': {
             exports: 'Handlebars'
         }
     },
+    map: {
+        '*': {
+            // Spoon
+            'spoon': '../components/spoon.js/src/index',
+
+            // Spoon aliases
+            'spoon/Controller': '../components/spoon.js/src/core/Controller',
+            'spoon/View': '../components/spoon.js/src/core/View',
+
+            // Spoon services
+            'services/broadcaster': '../components/spoon.js/src/core/Broadcaster/BroadcasterFactory',
+            'services/address': '../components/spoon.js/src/core/Address/AddressFactory',
+            'services/state': '../components/spoon.js/src/core/StateRegistry/StateRegistryFactory'
+        }
+    },
     packages: [
-        // css plugin
+        // CSS plugin
         {
             name: 'css',
-            location: '../vendor/curl-css',
+            location: '../components/curl-css',
             main: 'index'
-        },
-        // spoon
-        {
-            name: 'spoon',
-            location: '../vendor/spoon.js/src'
         }
     ],
     urlArgs: (new Date()).getTime()    // Fix cache issues

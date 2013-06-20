@@ -1,11 +1,11 @@
 define([
-    'spoon',
+    'spoon/Controller',
     './HomeView'
-], function (spoon, HomeView) {
+], function (Controller, HomeView) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: 'HomeController',
 
         _view: null,
@@ -16,7 +16,7 @@ define([
          * Constructor.
          */
         initialize: function () {
-            spoon.Controller.call(this);
+            Controller.call(this);
 
             this._view = this._link(new HomeView());
             this._view.appendTo('#content');

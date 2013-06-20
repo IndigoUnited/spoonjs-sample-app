@@ -1,4 +1,4 @@
-/*jshint node:true, es5:true*/
+/*jshint node:true*/
 
 'use strict';
 
@@ -10,7 +10,7 @@ var task = {
     options: {
         force: {
             description: 'Force fetching of remote sources',
-            default: false
+            'default': false
         }
     },
     filter: function (opts, ctx, next) {
@@ -22,7 +22,7 @@ var task = {
             task: 'run',
             description: 'Install client environment dependencies',
             options: {
-                // TODO: bower should be called programatically?
+                // TODO: bower should be called programmatically?
                 //       this would avoid having a global dependency on bower
                 //       on the other hand.. its a good idea to force the user to install
                 //       bower because it will be used as package manager for every project
@@ -33,7 +33,7 @@ var task = {
             task: 'run',
             description: 'Install node environment dependencies',
             options: {
-                // TODO: should npm be called programatically?
+                // TODO: should npm be called programmatically?
                 cmd: 'npm install{{trailCmd}}'
             }
         },
