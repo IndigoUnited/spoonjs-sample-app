@@ -1,17 +1,17 @@
 define([
-    'spoon'
-], function (spoon) {
+    'spoon/Controller'
+], function (Controller) {
 
     'use strict';
 
-    return spoon.Controller.extend({
+    return Controller.extend({
         $name: '{{name}}Controller',
 
         /**
          * Constructor.
          */
         initialize: function () {
-            this.$super();
+            Controller.call(this);
 
             // Do things here
         },
@@ -19,10 +19,11 @@ define([
         /**
          * {@inheritDoc}
          */
-        _onDestroy: function () {
-            // Destroy things here
-
-            this.$super();
-        }
+        /*_onDestroy: function () {
+            // Cancel timers, ajax requests and other stuff here
+            // Note that linked child views/controllers are automatically destroyed
+            // when this controller is destroyed
+            Controller.prototype._onDestroy.call(this);
+        }*/
     });
 });
