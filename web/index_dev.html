@@ -6,11 +6,17 @@
         <title>spoon.js-sample-app</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <script src="/dev/components/requirejs/require.js"></script>
+        <script type="text/javascript">
+        var require = {
+            // Fix cache issues
+            urlArgs: (new Date()).getTime()
+        };
+        </script>
+        <script data-main="/dev/app/loader" src="/dev/components/requirejs/require.js"></script>
     </head>
     <body>
         <script>
-            require(['/dev/app/bootstrap.js?' + new Date()]);
+            require(['../app/bootstrap']);
         </script>
     </body>
 </html>
