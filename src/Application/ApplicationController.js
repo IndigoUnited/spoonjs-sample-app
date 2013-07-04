@@ -48,7 +48,7 @@ define([
         _homeState: function (state) {
             this._destroyContent();
             this._content = this._link(new HomeController());
-            this._content.setState(state);
+            this._content.delegateState(state);
 
             // Broadcast the content change (will be caught by the menu to select the current item)
             // This was actually unecessary because we could do this._menu.setSelected('home') instead
@@ -64,7 +64,7 @@ define([
         _articlesState: function (state) {
             this._destroyContent();
             this._content = this._link(new ArticlesController());
-            this._content.setState(state);
+            this._content.delegateState(state);
 
             this._broadcast('app.content_change', 'articles');
         },
@@ -77,7 +77,7 @@ define([
         _helpState: function (state) {
             this._destroyContent();
             this._content = this._link(new HelpController());
-            this._content.setState(state);
+            this._content.delegateState(state);
 
             this._broadcast('app.content_change', 'help');
         },
@@ -100,7 +100,14 @@ define([
             this._panelView.render();
 
             this._panelView.on('close', function () {
-                this.setState(state.$info.previousState);  // Change to the previous known state
+                var previousState = state.$info.previousState;
+
+                // Switch to previous state
+                if (state.$info.previousState) {
+                    this.setState(previousState.getName(), previousState.getParams());
+                } else {
+                    this.setState('home');
+                }
             }.bind(this));
 
             this._broadcast('app.content_change', 'about');
