@@ -1,6 +1,11 @@
 {
   "name": "spoon.js-sample-app",
   "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
   "dependencies": {
     "spoonjs": "*",
     "requirejs": "~2.1.2",
