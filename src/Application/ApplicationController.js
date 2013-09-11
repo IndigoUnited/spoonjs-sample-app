@@ -103,8 +103,8 @@ define([
                 var previousState = state.$info.previousState;
 
                 // Switch to previous state
-                if (state.$info.previousState) {
-                    this.setState(previousState.getName(), previousState.getParams());
+                if (previousState) {
+                    this.setState('/' + previousState.getFullName(), previousState.getParams());
                 } else {
                     this.setState('home');
                 }
