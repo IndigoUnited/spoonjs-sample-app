@@ -5,7 +5,7 @@
 {{~it.articles :article:index }}
     <tr data-id="{{= article.id }}">
         <td>{{= article.id }}</td>
-        <td><a href="{{= it.$url('show', { id: article.id }) }}">{{= article.title }}</td>
+        <td><a href="{{= this.url('show', { id: article.id }) }}">{{= article.title }}</td>
     </tr>
 {{~ }}
 </table>
